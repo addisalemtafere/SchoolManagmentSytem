@@ -50,7 +50,7 @@ namespace StudentManagmentHighSchool.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AddressId,Region,City,Kebele,HouseNumber,Email,Telephone")] Address address)
+        public ActionResult Create([Bind(Include = "AddressId,Region,Ciity,kebele,Email,Telephone")] Address address)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace StudentManagmentHighSchool.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AddressId,Region,City,Kebele,HouseNumber,Email,Telephone")] Address address)
+        public ActionResult Edit([Bind(Include = "AddressId,Region,Ciity,kebele,Email,Telephone")] Address address)
         {
             if (ModelState.IsValid)
             {

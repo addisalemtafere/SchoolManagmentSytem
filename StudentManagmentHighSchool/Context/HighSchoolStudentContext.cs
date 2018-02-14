@@ -12,6 +12,9 @@ namespace StudentManagmentHighSchool.Context
         public DbSet<Student> Students { get; set; }
         public DbSet<Staff> Staffs { get; set; }
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<Admission> Admissions { get; set; }
+        public DbSet<MarkList> MarkLists { get; set; }
+        public DbSet<Course> Courses { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             // Configure StudentId as PK for StudentAddress
@@ -23,13 +26,13 @@ namespace StudentManagmentHighSchool.Context
                 .HasRequired(s => s.Address)
                 .WithRequiredPrincipal(ad => ad.Student);
 
-//            modelBuilder.Entity<Address>()
-//                .HasKey(e => e.AddressId);
-//
-//            // Configure StudentId as FK for StudentAddress
-//            modelBuilder.Entity<Staff>()
-//                .HasRequired(s => s.Address)
-//                .WithRequiredPrincipal(ad => ad.Staff);
+            modelBuilder.Entity<Address>()
+                .HasKey(e => e.AddressId);
+
+            // Configure StudentId as FK for StudentAddress
+            modelBuilder.Entity<Staff>()
+                .HasRequired(s => s.Address)
+                .WithRequiredPrincipal(ad => ad.Staff);
         }
     }
 }

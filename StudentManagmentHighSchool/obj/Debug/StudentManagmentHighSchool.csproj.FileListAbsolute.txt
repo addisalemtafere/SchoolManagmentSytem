@@ -91,7 +91,5 @@ F:\School managment C#\StudentManagmentHighSchool\StudentManagmentHighSchool\bin
 F:\School managment C#\StudentManagmentHighSchool\StudentManagmentHighSchool\bin\Microsoft.AI.ServerTelemetryChannel.xml
 F:\School managment C#\StudentManagmentHighSchool\StudentManagmentHighSchool\bin\Microsoft.AI.WindowsServer.xml
 F:\School managment C#\StudentManagmentHighSchool\StudentManagmentHighSchool\bin\Microsoft.AI.Web.xml
-F:\School managment C#\StudentManagmentHighSchool\StudentManagmentHighSchool\obj\Debug\StudentManagmentHighSchool.Migrations.InitialCreate.resources
-F:\School managment C#\StudentManagmentHighSchool\StudentManagmentHighSchool\obj\Debug\StudentManagmentHighSchool.csproj.GenerateResource.Cache
 F:\School managment C#\StudentManagmentHighSchool\StudentManagmentHighSchool\obj\Debug\StudentManagmentHighSchool.dll
 F:\School managment C#\StudentManagmentHighSchool\StudentManagmentHighSchool\obj\Debug\StudentManagmentHighSchool.pdb

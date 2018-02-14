@@ -10,7 +10,6 @@ namespace StudentManagmentHighSchool.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            ContextKey = "StudentManagmentHighSchool.Context.HighSchoolStudentContext";
         }
 
         protected override void Seed(StudentManagmentHighSchool.Context.HighSchoolStudentContext context)

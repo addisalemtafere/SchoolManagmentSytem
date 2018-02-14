@@ -21,12 +21,19 @@ namespace StudentManagmentHighSchool
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
+                      "~/Scripts/datatables.min.js",
+                      "~/Scripts/adminLTE/app.min.js",
+//                      "~/Scripts/adminLTE/dashboard.js",
+//                      "~/Scripts/adminLTE/demo.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/sb-admin.css",
+//                      "~/Content/sb-admin.css",
                       "~/Content/font-awesome.css",
+                      "~/Content/datatables.min.css",
+                      "~/Content/AdminLTE.min.css",
+                      "~/Content/_all-skins.min.css",
                       "~/Content/site.css"));
         }
     }
