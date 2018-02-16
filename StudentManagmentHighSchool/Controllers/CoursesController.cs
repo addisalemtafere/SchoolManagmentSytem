@@ -13,13 +13,12 @@ namespace StudentManagmentHighSchool.Controllers
 {
     public class CoursesController : Controller
     {
-        private HighSchoolStudentContext db = new HighSchoolStudentContext();
+        private SchoolStudentContext db = new SchoolStudentContext();
 
         // GET: Courses
         public ActionResult Index()
         {
-            var courses = db.Courses.Include(c => c.MarkList);
-            return View(courses.ToList());
+            return View(db.Courses.ToList());
         }
 
         // GET: Courses/Details/5
@@ -40,7 +39,6 @@ namespace StudentManagmentHighSchool.Controllers
         // GET: Courses/Create
         public ActionResult Create()
         {
-            ViewBag.MarkListId = new SelectList(db.MarkLists, "MarkListId", "Semister");
             return View();
         }
 
@@ -49,7 +47,7 @@ namespace StudentManagmentHighSchool.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CourseId,MarkListId,CourseName")] Course course)
+        public ActionResult Create([Bind(Include = "CourseId,CourseName")] Course course)
         {
             if (ModelState.IsValid)
             {
@@ -58,7 +56,6 @@ namespace StudentManagmentHighSchool.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.MarkListId = new SelectList(db.MarkLists, "MarkListId", "Semister", course.MarkListId);
             return View(course);
         }
 
@@ -74,7 +71,6 @@ namespace StudentManagmentHighSchool.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.MarkListId = new SelectList(db.MarkLists, "MarkListId", "Semister", course.MarkListId);
             return View(course);
         }
 
@@ -83,7 +79,7 @@ namespace StudentManagmentHighSchool.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CourseId,MarkListId,CourseName")] Course course)
+        public ActionResult Edit([Bind(Include = "CourseId,CourseName")] Course course)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +87,6 @@ namespace StudentManagmentHighSchool.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.MarkListId = new SelectList(db.MarkLists, "MarkListId", "Semister", course.MarkListId);
             return View(course);
         }
 

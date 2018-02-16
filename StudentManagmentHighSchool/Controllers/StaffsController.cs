@@ -13,7 +13,7 @@ namespace StudentManagmentHighSchool.Controllers
 {
     public class StaffsController : Controller
     {
-        private HighSchoolStudentContext db = new HighSchoolStudentContext();
+        private SchoolStudentContext db = new SchoolStudentContext();
 
         // GET: Staffs
         public ActionResult Index()

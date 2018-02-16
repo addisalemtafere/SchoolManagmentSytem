@@ -21,7 +21,7 @@ namespace StudentManagmentHighSchool.Models
         public string Gender { get; set; }
         public DateTime EmploymentDate { get; set; }
         public  string Qualification { get; set; }
-        public  Address Address { get; set; }
+        public virtual Address Address { get; set; }
 
 
 

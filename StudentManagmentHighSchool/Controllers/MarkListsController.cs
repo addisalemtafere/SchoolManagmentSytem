@@ -13,12 +13,12 @@ namespace StudentManagmentHighSchool.Controllers
 {
     public class MarkListsController : Controller
     {
-        private HighSchoolStudentContext db = new HighSchoolStudentContext();
+        private SchoolStudentContext db = new SchoolStudentContext();
 
         // GET: MarkLists
         public ActionResult Index()
         {
-            var markLists = db.MarkLists.Include(m => m.Admission);
+            var markLists = db.MarkLists.Include(m => m.Admission).Include(m => m.Courses);
             return View(markLists.ToList());
         }
 
@@ -41,6 +41,7 @@ namespace StudentManagmentHighSchool.Controllers
         public ActionResult Create()
         {
             ViewBag.AdmissionId = new SelectList(db.Admissions, "AdmissionId", "AdmissionId");
+            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseName");
             return View();
         }
 
@@ -49,7 +50,7 @@ namespace StudentManagmentHighSchool.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MarkListId,AdmissionId,CourseId,Mark,Semister")] MarkList markList)
+        public ActionResult Create([Bind(Include = "MarkListId,CourseId,AdmissionId,Mark,Semister")] MarkList markList)
         {
             if (ModelState.IsValid)
             {
@@ -59,6 +60,7 @@ namespace StudentManagmentHighSchool.Controllers
             }
 
             ViewBag.AdmissionId = new SelectList(db.Admissions, "AdmissionId", "AdmissionId", markList.AdmissionId);
+            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseName", markList.CourseId);
             return View(markList);
         }
 
@@ -75,6 +77,7 @@ namespace StudentManagmentHighSchool.Controllers
                 return HttpNotFound();
             }
             ViewBag.AdmissionId = new SelectList(db.Admissions, "AdmissionId", "AdmissionId", markList.AdmissionId);
+            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseName", markList.CourseId);
             return View(markList);
         }
 
@@ -83,7 +86,7 @@ namespace StudentManagmentHighSchool.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MarkListId,AdmissionId,CourseId,Mark,Semister")] MarkList markList)
+        public ActionResult Edit([Bind(Include = "MarkListId,CourseId,AdmissionId,Mark,Semister")] MarkList markList)
         {
             if (ModelState.IsValid)
             {
@@ -92,6 +95,7 @@ namespace StudentManagmentHighSchool.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.AdmissionId = new SelectList(db.Admissions, "AdmissionId", "AdmissionId", markList.AdmissionId);
+            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseName", markList.CourseId);
             return View(markList);
         }
 

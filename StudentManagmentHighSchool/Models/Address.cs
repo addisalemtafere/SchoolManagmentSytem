@@ -13,7 +13,7 @@ namespace StudentManagmentHighSchool.Models
         public string kebele { get; set; }
         public string Email { get; set; }
         public int Telephone { get; set; }
-        public Staff Staff { get; set; }
-        public Student Student { get; set; }
+        public virtual  Staff Staff { get; set; }
+        public virtual Student Student { get; set; }
     }
 }

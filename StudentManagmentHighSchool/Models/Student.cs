@@ -21,6 +21,7 @@ namespace StudentManagmentHighSchool.Models
         public string PhotoUrl { get; set; }
 
         public bool Gender { get; set; }
+       
 
         public string ParentFirstName { get; set; }
 
@@ -28,7 +29,7 @@ namespace StudentManagmentHighSchool.Models
 
         public long TelePhone { get; set; }
 
-        public  Address Address { get; set; }
+        public virtual Address Address { get; set; }
 
     }
 }

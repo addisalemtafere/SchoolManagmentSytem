@@ -8,9 +8,8 @@ namespace StudentManagmentHighSchool.Models
     public class Course
     {
         public int CourseId { get; set; }
-        public int MarkListId { get; set; }
         public string CourseName { get; set; }
 
-        public MarkList MarkList { get; set; }
+        public virtual ICollection<MarkList> MarkLists { get; set; }
     }
 }

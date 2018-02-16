@@ -7,7 +7,7 @@ using StudentManagmentHighSchool.Models;
 
 namespace StudentManagmentHighSchool.Context
 {
-    public class HighSchoolStudentContext:DbContext
+    public class SchoolStudentContext:DbContext
     {
         public DbSet<Student> Students { get; set; }
         public DbSet<Staff> Staffs { get; set; }
@@ -34,5 +34,6 @@ namespace StudentManagmentHighSchool.Context
                 .HasRequired(s => s.Address)
                 .WithRequiredPrincipal(ad => ad.Staff);
         }
+
     }
 }

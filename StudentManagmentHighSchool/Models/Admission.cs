@@ -13,6 +13,6 @@ namespace StudentManagmentHighSchool.Models
         public DateTime AdmitionYear { get; set; }
         public int Grade { get; set; }
         public Student Student { get; set; }
-        public ICollection<MarkList> MarkLists { get; set; }    
+        public virtual ICollection<MarkList> MarkLists { get; set; }    
     }
 }
