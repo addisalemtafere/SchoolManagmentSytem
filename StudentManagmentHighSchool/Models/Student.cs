@@ -9,6 +9,7 @@ namespace StudentManagmentHighSchool.Models
     {
 
         public int StudentId { get; set; }
+        public int ager { get; set; }
 
         public string FirstName { get; set; }
 

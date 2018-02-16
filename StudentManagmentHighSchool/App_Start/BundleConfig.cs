@@ -32,8 +32,10 @@ namespace StudentManagmentHighSchool
 //                      "~/Content/sb-admin.css",
                       "~/Content/font-awesome.css",
                       "~/Content/datatables.min.css",
+                      "~/Content/datatables.min.css",
                       "~/Content/AdminLTE.min.css",
                       "~/Content/_all-skins.min.css",
+                      "~/Content/font-awesome.css",
                       "~/Content/site.css"));
         }
     }

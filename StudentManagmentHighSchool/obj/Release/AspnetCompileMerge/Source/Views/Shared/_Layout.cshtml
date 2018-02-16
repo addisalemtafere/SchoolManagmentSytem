@@ -311,7 +311,7 @@
             </li>
             <li>
                 <a href="@Url.Action("Index", "Students")">
-                    <i class="fa fa-circle-o text-red"></i>
+                    <i class="fa fa-users text-red"></i>
                     <span>Student</span>
                 </a>
             </li>
@@ -378,8 +378,12 @@
             <li class="active">Dashboard</li>
         </ol>
     </section>
+    <div id="body-content"  class="row">
+        <div class="col-md-12">
+            @RenderBody()
 
-    @RenderBody()
+        </div>
+    </div>
 </div>
 
 <footer class="main-footer">

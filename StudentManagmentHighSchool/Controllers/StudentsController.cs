@@ -18,7 +18,11 @@ namespace StudentManagmentHighSchool.Controllers
         // GET: Students
         public ActionResult Index()
         {
-            return View(db.Students.ToList());
+            db.Database.Log = Console.Write;
+            var studentList = (from s in db.Students
+                orderby s.MiddleName ascending
+                select s).ToList();
+            return View(studentList);
         }
 
         // GET: Students/Details/5
@@ -28,11 +32,13 @@ namespace StudentManagmentHighSchool.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Student student = db.Students.Find(id);
             if (student == null)
             {
                 return HttpNotFound();
             }
+
             return View(student);
         }
 
@@ -47,7 +53,9 @@ namespace StudentManagmentHighSchool.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "StudentId,FirstName,MiddleName,LastName,BirthDate,PhotoUrl,Gender,ParentFirstName,ParentMiddleName,TelePhone")] Student student)
+        public ActionResult Create([Bind(Include =
+                "StudentId,FirstName,MiddleName,LastName,BirthDate,PhotoUrl,Gender,ParentFirstName,ParentMiddleName,TelePhone")]
+            Student student)
         {
             if (ModelState.IsValid)
             {
@@ -66,11 +74,13 @@ namespace StudentManagmentHighSchool.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Student student = db.Students.Find(id);
             if (student == null)
             {
                 return HttpNotFound();
             }
+
             return View(student);
         }
 
@@ -79,7 +89,9 @@ namespace StudentManagmentHighSchool.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "StudentId,FirstName,MiddleName,LastName,BirthDate,PhotoUrl,Gender,ParentFirstName,ParentMiddleName,TelePhone")] Student student)
+        public ActionResult Edit([Bind(Include =
+                "StudentId,FirstName,MiddleName,LastName,BirthDate,PhotoUrl,Gender,ParentFirstName,ParentMiddleName,TelePhone")]
+            Student student)
         {
             if (ModelState.IsValid)
             {
@@ -87,6 +99,7 @@ namespace StudentManagmentHighSchool.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             return View(student);
         }
 
@@ -97,11 +110,13 @@ namespace StudentManagmentHighSchool.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Student student = db.Students.Find(id);
             if (student == null)
             {
                 return HttpNotFound();
             }
+
             return View(student);
         }
 
@@ -122,6 +137,7 @@ namespace StudentManagmentHighSchool.Controllers
             {
                 db.Dispose();
             }
+
             base.Dispose(disposing);
         }
     }
