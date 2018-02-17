@@ -22,57 +22,18 @@ namespace StudentManagmentHighSchool.Controllers
 
         public ActionResult Index(string sortOrder, string CurrentSort, int? page)
         {
-            int pageSize = 10;
+            int pageSize = 15;
             int pageIndex = 1;
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
 
             ViewBag.CurrentSort = sortOrder;
 
-            sortOrder = String.IsNullOrEmpty(sortOrder) ? "Emp_ID" : sortOrder;
-
-            IPagedList<Student> emp = null;
-
-            switch (sortOrder)
-            {
-                case "Emp_ID":
-                    if (sortOrder.Equals(CurrentSort))
-                        emp = db.Students.OrderByDescending
-                                (m => m.StudentId).ToPagedList(pageIndex, pageSize);
-                    else
-                        emp = db.Students.OrderBy
-                                (m => m.StudentId).ToPagedList(pageIndex, pageSize);
-                    break;
-                case "Emp_Name":
-                    if (sortOrder.Equals(CurrentSort))
-                        emp = db.Students.OrderByDescending
+            IPagedList<Student> emp  = db.Students.OrderBy
                                 (m => m.FirstName).ToPagedList(pageIndex, pageSize);
-                    else
-                        emp = db.Students.OrderBy
-                                (m => m.FirstName).ToPagedList(pageIndex, pageSize);
-                    break;
 
-                case "Email":
-                    if (sortOrder.Equals(CurrentSort))
-                        emp = db.Students.OrderByDescending
-                                (m => m.LastName).ToPagedList(pageIndex, pageSize);
-                    else
-                        emp = db.Students.OrderBy
-                                (m => m.LastName).ToPagedList(pageIndex, pageSize);
-                    break;
-
-                
-            }
             return View(emp);
         }
-        //        public ActionResult Index(int? page)
-        //        {
-        //
-        //            db.Database.Log = Console.Write;
-        //            var studentList = (from s in db.Students
-        //                orderby s.MiddleName ascending
-        //                select s).ToList();
-        //            return View(studentList);
-        //        }
+   
 
         // GET: Students/Details/5
         public ActionResult Details(int? id)
