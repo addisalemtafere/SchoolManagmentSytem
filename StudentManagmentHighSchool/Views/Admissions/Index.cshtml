@@ -11,6 +11,7 @@
 </p>
 <table class="table">
     <tr>
+        <th>No</th>
         <th>
             @Html.DisplayNameFor(model => model.Student.FirstName)
         </th>
@@ -23,23 +24,28 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Student.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AdmitionYear)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Grade)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.AdmissionId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.AdmissionId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.AdmissionId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model.Select((value, i) => new {i, value}))
+    {
+        <tr>
+            @{ var i = item.i+1; }
+            <td>@i</td>
+
+
+            <td>
+                @Html.DisplayFor(modelItem => item.value.Student.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.value.AdmitionYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.value.Grade)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {id = item.value.AdmissionId}) |
+                @Html.ActionLink("Details", "Details", new {id = item.value.AdmissionId}) |
+                @Html.ActionLink("Delete", "Delete", new {id = item.value.AdmissionId})
+            </td>
+        </tr>
+    }
 
 </table>
