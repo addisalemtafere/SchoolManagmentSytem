@@ -110,3 +110,7 @@ F:\School managment C#\StudentManagmentHighSchool\StudentManagmentHighSchool\bin
 F:\School managment C#\StudentManagmentHighSchool\StudentManagmentHighSchool\bin\CrystalDecisions.ReportAppServer.ObjectFactory.dll
 F:\School managment C#\StudentManagmentHighSchool\StudentManagmentHighSchool\bin\CrystalDecisions.ReportAppServer.CommonControls.dll
 F:\School managment C#\StudentManagmentHighSchool\StudentManagmentHighSchool\bin\stdole.dll
+F:\School managment C#\StudentManagmentHighSchool\StudentManagmentHighSchool\bin\PagedList.dll
+F:\School managment C#\StudentManagmentHighSchool\StudentManagmentHighSchool\bin\PagedList.Mvc.dll
+F:\School managment C#\StudentManagmentHighSchool\StudentManagmentHighSchool\bin\PagedList.xml
+F:\School managment C#\StudentManagmentHighSchool\StudentManagmentHighSchool\bin\PagedList.Mvc.xml

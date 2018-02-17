@@ -1,83 +1,104 @@
-﻿@model IEnumerable<StudentManagmentHighSchool.Models.Student>
-
+﻿@model PagedList.IPagedList<StudentManagmentHighSchool.Models.Student> 
+@using PagedList.Mvc;  
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-    <div><a href="@Url.Action("ExportCustomers")"> Report PDF </a></div>  
+<div class="col-md-12">
+    <div class="col-lg-6">
+        <a class="btn btn-primary" href="@Url.Action("Create")"> Add Student</a>
+    </div>
+    <div class=" col-md-6">
+        <a class="pull-right btn btn-primary" href="@Url.Action("ExportStudentToPdf")"> Report PDF </a>
+        <a class="pull-right btn btn-primary" href="@Url.Action("ExportsStudentToExcel")"> Report Excel </a>
+    </div>
 
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MiddleName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BirthDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhotoUrl)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gender)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ParentFirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ParentMiddleName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TelePhone)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MiddleName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BirthDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhotoUrl)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Gender)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ParentFirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ParentMiddleName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TelePhone)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.StudentId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.StudentId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.StudentId })
-        </td>
-    </tr>
+</div>
+@using (Html.BeginForm())
+{
+    <table class="table">
+        <tr>
+            <th>No</th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().MiddleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().BirthDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().PhotoUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ParentFirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ParentMiddleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().TelePhone)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.Select((value, i) => new {i, value}))
+        {
+            <tr>
+                @{ var i = item.i + 1; }
+                <td>@i</td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.value.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.value.MiddleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.value.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.value.BirthDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.value.PhotoUrl)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.value.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.value.ParentFirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.value.ParentMiddleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.value.TelePhone)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new {id = item.value.StudentId}) |
+                    @Html.ActionLink("Details", "Details", new {id = item.value.StudentId}) |
+                    @Html.ActionLink("Delete", "Delete", new {id = item.value.StudentId})
+                </td>
+            </tr>
+        }
+
+    </table>
+    <div id='Paging' style="text-align: center">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+        of @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("Index", new {page}))
+    </div>
 }
-
-</table>

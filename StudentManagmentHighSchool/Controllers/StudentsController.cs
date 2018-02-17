@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CrystalDecisions.CrystalReports.Engine;
+using PagedList;
 using StudentManagmentHighSchool.Context;
 using StudentManagmentHighSchool.Models;
 
@@ -18,14 +19,60 @@ namespace StudentManagmentHighSchool.Controllers
         private SchoolStudentContext db = new SchoolStudentContext();
 
         // GET: Students
-        public ActionResult Index()
+
+        public ActionResult Index(string sortOrder, string CurrentSort, int? page)
         {
-            db.Database.Log = Console.Write;
-            var studentList = (from s in db.Students
-                orderby s.MiddleName ascending
-                select s).ToList();
-            return View(studentList);
+            int pageSize = 10;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+
+            ViewBag.CurrentSort = sortOrder;
+
+            sortOrder = String.IsNullOrEmpty(sortOrder) ? "Emp_ID" : sortOrder;
+
+            IPagedList<Student> emp = null;
+
+            switch (sortOrder)
+            {
+                case "Emp_ID":
+                    if (sortOrder.Equals(CurrentSort))
+                        emp = db.Students.OrderByDescending
+                                (m => m.StudentId).ToPagedList(pageIndex, pageSize);
+                    else
+                        emp = db.Students.OrderBy
+                                (m => m.StudentId).ToPagedList(pageIndex, pageSize);
+                    break;
+                case "Emp_Name":
+                    if (sortOrder.Equals(CurrentSort))
+                        emp = db.Students.OrderByDescending
+                                (m => m.FirstName).ToPagedList(pageIndex, pageSize);
+                    else
+                        emp = db.Students.OrderBy
+                                (m => m.FirstName).ToPagedList(pageIndex, pageSize);
+                    break;
+
+                case "Email":
+                    if (sortOrder.Equals(CurrentSort))
+                        emp = db.Students.OrderByDescending
+                                (m => m.LastName).ToPagedList(pageIndex, pageSize);
+                    else
+                        emp = db.Students.OrderBy
+                                (m => m.LastName).ToPagedList(pageIndex, pageSize);
+                    break;
+
+                
+            }
+            return View(emp);
         }
+        //        public ActionResult Index(int? page)
+        //        {
+        //
+        //            db.Database.Log = Console.Write;
+        //            var studentList = (from s in db.Students
+        //                orderby s.MiddleName ascending
+        //                select s).ToList();
+        //            return View(studentList);
+        //        }
 
         // GET: Students/Details/5
         public ActionResult Details(int? id)
@@ -142,17 +189,11 @@ namespace StudentManagmentHighSchool.Controllers
 
             base.Dispose(disposing);
         }
-        public ActionResult ExportCustomers()
+        public ActionResult ExportStudentToPdf()
         {
             List<Student> AllStudent = new List<Student>();
             AllStudent = db.Students.ToList();
-//            using (ReportClass rptH = new ReportClass())
-//            {
-//                rptH.FileName = Server.MapPath("~/") + "//Rpts//simple.rpt";
-//                rptH.Load();
-//                rptH.ExportToHttpResponse(ExportFormatType.PortableDocFormat, System.Web.HttpContext.Current.Response, false, "crReport");
-//            }
-
+//          
             ReportDocument rd = new ReportDocument();
             rd.Load(Path.Combine(Server.MapPath("~/Reports"), "CrystalReport4.rpt"));
 
@@ -166,6 +207,27 @@ namespace StudentManagmentHighSchool.Controllers
             Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
             stream.Seek(0, SeekOrigin.Begin);
             return File(stream, "application/pdf", "CustomerList.pdf");
+        }
+
+        public ActionResult ExportsStudentToExcel()
+        {
+            List<Student> AllStudent = new List<Student>();
+            AllStudent = db.Students.ToList();
+            //            
+
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "CrystalReport4.rpt"));
+
+            rd.SetDataSource(AllStudent);
+
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+
+            Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.Excel);
+            stream.Seek(0, SeekOrigin.Begin);
+            return File(stream, "application/excel", "CustomerList.xls");
         }
     }
 }
