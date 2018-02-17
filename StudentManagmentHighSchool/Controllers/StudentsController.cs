@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using CrystalDecisions.CrystalReports.Engine;
 using StudentManagmentHighSchool.Context;
 using StudentManagmentHighSchool.Models;
 
@@ -139,6 +141,31 @@ namespace StudentManagmentHighSchool.Controllers
             }
 
             base.Dispose(disposing);
+        }
+        public ActionResult ExportCustomers()
+        {
+            List<Student> AllStudent = new List<Student>();
+            AllStudent = db.Students.ToList();
+//            using (ReportClass rptH = new ReportClass())
+//            {
+//                rptH.FileName = Server.MapPath("~/") + "//Rpts//simple.rpt";
+//                rptH.Load();
+//                rptH.ExportToHttpResponse(ExportFormatType.PortableDocFormat, System.Web.HttpContext.Current.Response, false, "crReport");
+//            }
+
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "CrystalReport4.rpt"));
+
+            rd.SetDataSource(AllStudent);
+
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+
+            Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+            stream.Seek(0, SeekOrigin.Begin);
+            return File(stream, "application/pdf", "CustomerList.pdf");
         }
     }
 }
